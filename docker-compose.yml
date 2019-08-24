@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis:
+    image: redislabs/redisgraph
+    ports:
+      - "6379:6379"
+  load-handler:
+    image: loadhandler
+    build: 
+      context: .
+    volumes:
+    - $PWD/handler:/app/handler
+    environment:
+    - REDIS_HOST=redis
+    command: python handler/test.py
